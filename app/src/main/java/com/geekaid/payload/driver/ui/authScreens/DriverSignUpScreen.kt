@@ -1,18 +1,17 @@
 package com.geekaid.payload.driver.ui.authScreens
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ConfirmationNumber
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Password
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,10 +25,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.geekaid.payload.components.passwordVisible
 import com.geekaid.payload.dealer.firebaseDao.authDao.dealerSignUpDao
-import com.geekaid.payload.dealer.model.DealerSignUpModel
 import com.geekaid.payload.dealer.navigation.DealerScreens
-import com.geekaid.payload.driver.model.DriverRoute
+import com.geekaid.payload.driver.driverFirevaseDao.driverAuthDao.driverSignUpDao
+import com.geekaid.payload.driver.model.DriverSignUpModel
 import com.geekaid.payload.driver.navigation.DriverScreens
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun DriverSignUpScreen(navController: NavController) {
@@ -38,19 +38,25 @@ fun DriverSignUpScreen(navController: NavController) {
     var name by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
     var mobileNumber by remember { mutableStateOf("") }
+    var transporterName by remember { mutableStateOf("") }
+    var truckNumber by remember { mutableStateOf("") }
+    var truckCapacity by remember { mutableStateOf("") }
 
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
     var passwordVisibility by remember { mutableStateOf(false) }
     var confirmPasswordVisibility by remember { mutableStateOf(false) }
+    var buttonClicked by remember { mutableStateOf(false) }
 
-    val context = LocalContext.current
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
+
 
     Column(
         modifier = Modifier
-            .padding(10.dp),
+            .padding(10.dp)
+            .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -103,6 +109,44 @@ fun DriverSignUpScreen(navController: NavController) {
                 .padding(8.dp)
         )
 
+        OutlinedTextField(
+            value = transporterName,
+            onValueChange = { transporterName = it },
+            label = { Text(text = "Transporter Name") },
+            leadingIcon = {
+                Icon(Icons.Filled.PersonOutline, contentDescription = "Transporter Name")
+            },
+            maxLines = 1,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        )
+
+        OutlinedTextField(
+            value = truckNumber,
+            onValueChange = { truckNumber = it },
+            label = { Text(text = "Truck Number") },
+            leadingIcon = {
+                Icon(Icons.Filled.ConfirmationNumber, contentDescription = "Truck Number")
+            },
+            maxLines = 1,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        )
+
+        OutlinedTextField(
+            value = truckCapacity,
+            onValueChange = { truckCapacity = it },
+            label = { Text(text = "Truck Capacity") },
+            leadingIcon = {
+                Icon(Icons.Filled.ReduceCapacity, contentDescription = "Capacity")
+            },
+            maxLines = 1,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        )
 
 
         OutlinedTextField(
@@ -136,17 +180,22 @@ fun DriverSignUpScreen(navController: NavController) {
 
         Button(
             onClick = {
-//                dealerSignUpDao(
-//                    credential = DealerSignUpModel(
-//                        email = email,
-//                        name = name,
-//                        password = password,
-//                        confirmPassword = password
-//                    ),
-//                    context = context,
-//                    navController = navController
-//                )
-                      navController.navigate(DriverScreens.SignUpData.route)
+
+                driverSignUpDao(
+                    credentials = DriverSignUpModel(
+                        email = email,
+                        name = name,
+                        age = age,
+                        mobileNo = mobileNumber,
+                        transporterName = transporterName,
+                        truckCapacity = truckCapacity,
+                        truckNo = truckNumber,
+                        password = password,
+                        confirmPassword = confirmPassword
+                    ),
+                    context = context,
+                    navController = navController
+                )
             },
             contentPadding = PaddingValues(14.dp),
             modifier = Modifier

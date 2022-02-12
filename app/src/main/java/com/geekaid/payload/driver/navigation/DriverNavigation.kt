@@ -4,15 +4,21 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.geekaid.payload.dealer.navigation.DealerScreens
 import com.geekaid.payload.driver.ui.authScreens.DriverSignInScreen
 import com.geekaid.payload.driver.ui.authScreens.DriverSignUpDataScreen
 import com.geekaid.payload.driver.ui.authScreens.DriverSignUpScreen
 import com.geekaid.payload.driver.ui.mainScreens.DriverDashboardScreen
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun DriverNavigation(navController: NavHostController) {
 
-    NavHost(navController = navController, startDestination = DriverScreens.SignIn.route) {
+    val auth = FirebaseAuth.getInstance()
+
+    val driverStartDestination = if (auth.currentUser != null) DriverScreens.DashboardScreen.route else DriverScreens.SignIn.route
+
+    NavHost(navController = navController, startDestination = driverStartDestination) {
 
         composable(DriverScreens.SignIn.route) {
             DriverSignInScreen(navController = navController)
@@ -23,10 +29,10 @@ fun DriverNavigation(navController: NavHostController) {
         }
 
         composable(DriverScreens.SignUpData.route) {
-            DriverSignUpDataScreen()
+            DriverSignUpDataScreen(navController = navController)
         }
 
-        composable(DriverScreens.Dashboard.route) {
+        composable(DriverScreens.DashboardScreen.route) {
             DriverDashboardScreen()
         }
 

@@ -1,18 +1,18 @@
-package com.geekaid.payload.dealer.firebaseDao.authDao
+package com.geekaid.payload.driver.driverFirevaseDao.driverAuthDao
 
 import android.content.Context
 import android.widget.Toast
 import androidx.navigation.NavController
-import com.geekaid.payload.dealer.model.DealerDataModel
-import com.geekaid.payload.dealer.model.DealerSignUpModel
-import com.geekaid.payload.dealer.navigation.DealerScreens
+import com.geekaid.payload.driver.model.DriverDataModel
+import com.geekaid.payload.driver.model.DriverSignUpModel
 import com.geekaid.payload.driver.navigation.DriverScreens
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-fun dealerSignUpDao(
-    credential: DealerSignUpModel,
+
+fun driverSignUpDao(
+    credentials: DriverSignUpModel,
     context: Context,
     navController: NavController
 ) {
@@ -20,18 +20,24 @@ fun dealerSignUpDao(
     val auth = FirebaseAuth.getInstance()
     val firestore = Firebase.firestore
 
-    if (validateSignUpData(context, credential)) {
-        auth.createUserWithEmailAndPassword(credential.email, credential.password)
+    if (validateSignUpData(context, credentials)) {
+        auth.createUserWithEmailAndPassword(credentials.email, credentials.password)
             .addOnSuccessListener {
                 Toast.makeText(context, "Registered Successfully", Toast.LENGTH_SHORT).show()
-                firestore.collection("users").document("dealer")
-                    .collection(credential.email).document("data").set(
-                    DealerDataModel(
-                        name = credential.name,
-                        mobileNumber = credential.mobileNo
+
+                firestore.collection("users").document("driver")
+                    .collection(credentials.email).document("data").set(
+                    DriverDataModel(
+                        email = credentials.email,
+                        name = credentials.name,
+                        mobileNo = credentials.mobileNo,
+                        age = credentials.age,
+                        truckNo = credentials.truckNo,
+                        truckCapacity = credentials.truckCapacity,
+                        transporterName = credentials.transporterName
                     )
                 )
-                navController.navigate(DealerScreens.DashboardScreen.route)
+                navController.navigate(DriverScreens.SignUpData.route)
             }
             .addOnFailureListener {
                 Toast.makeText(context, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
@@ -40,7 +46,7 @@ fun dealerSignUpDao(
 
 }
 
-fun validateSignUpData(context: Context, credential: DealerSignUpModel): Boolean {
+fun validateSignUpData(context: Context, credential: DriverSignUpModel): Boolean {
 
     when {
         credential.email.isEmpty() -> Toast.makeText(
@@ -58,6 +64,34 @@ fun validateSignUpData(context: Context, credential: DealerSignUpModel): Boolean
         credential.mobileNo.isEmpty() -> Toast.makeText(
             context,
             "Mobile Number can't be empty",
+            Toast.LENGTH_SHORT
+        ).show()
+
+
+        credential.age.isEmpty() -> Toast.makeText(
+            context,
+            "Age can't be empty",
+            Toast.LENGTH_SHORT
+        ).show()
+
+
+        credential.truckNo.isEmpty() -> Toast.makeText(
+            context,
+            "Truck Number can't be empty",
+            Toast.LENGTH_SHORT
+        ).show()
+
+
+        credential.truckCapacity.isEmpty() -> Toast.makeText(
+            context,
+            "Truck capacity can't be empty",
+            Toast.LENGTH_SHORT
+        ).show()
+
+
+        credential.transporterName.isEmpty() -> Toast.makeText(
+            context,
+            "Transporter name can't be empty",
             Toast.LENGTH_SHORT
         ).show()
 
@@ -89,3 +123,5 @@ fun validateSignUpData(context: Context, credential: DealerSignUpModel): Boolean
     }
     return false
 }
+
+

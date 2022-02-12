@@ -8,6 +8,6 @@ sealed class DriverScreens(val route: String){
     object SignUpData: DriverScreens("driverSignUpData")
 
     //Main Screens
-    object Dashboard: DriverScreens("driverDashboard")
+    object DashboardScreen: DriverScreens("driverDashboard")
 
 }

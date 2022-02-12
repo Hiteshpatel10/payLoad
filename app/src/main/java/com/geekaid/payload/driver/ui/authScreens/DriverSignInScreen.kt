@@ -23,9 +23,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.geekaid.payload.components.passwordVisible
-import com.geekaid.payload.dealer.firebaseDao.authDao.dealerSignInDao
-import com.geekaid.payload.dealer.model.DealerSigInModel
-import com.geekaid.payload.dealer.navigation.DealerScreens
+import com.geekaid.payload.driver.driverFirevaseDao.driverAuthDao.driverSignInDao
+import com.geekaid.payload.driver.model.DriverSignInModel
 import com.geekaid.payload.driver.navigation.DriverScreens
 
 @Composable
@@ -79,8 +78,8 @@ fun DriverSignInScreen(navController: NavController) {
 
         Button(
             onClick = {
-                dealerSignInDao(
-                    dealerSignInModel = DealerSigInModel(email, password),
+                driverSignInDao(
+                    credential = DriverSignInModel(email, password),
                     context = context,
                     navController = navController
                 )
@@ -94,19 +93,6 @@ fun DriverSignInScreen(navController: NavController) {
             Text(text = "Log In")
         }
 
-        Row(
-            modifier = Modifier
-                .padding(4.dp)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text(text = "Forgotten your login details?", modifier = Modifier.alpha(0.7f))
-            ClickableText(
-                text = AnnotatedString(" Get help Signing in"),
-                onClick = {
-//                    navController.navigate(DealerScreens.route)
-                }
-            )
-        }
 
         Box(
             modifier = Modifier
