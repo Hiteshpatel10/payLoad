@@ -18,12 +18,12 @@ import com.geekaid.payload.viewmodel.DriverViewModel
 
 @ExperimentalMaterialApi
 @Composable
-fun DriverDashboardScreen(driverViewModel: DriverViewModel, navController: NavController) {
+fun DriverReqDealsScreen(driverViewModel: DriverViewModel, navController: NavController) {
 
-    driverViewModel.getAllDealList().collectAsState(initial = null).value?.toObjects(
+    driverViewModel.getReqDealList().collectAsState(initial = null).value?.toObjects(
         DealerDealAddModel::class.java
     )?.let { deals ->
-        driverViewModel.allDeals.value = deals
+        driverViewModel.requestedDeals.value = deals
     }
 
     Column(
@@ -32,20 +32,21 @@ fun DriverDashboardScreen(driverViewModel: DriverViewModel, navController: NavCo
             .padding(8.dp)
     ) {
 
-        if (driverViewModel.allDeals.value.isEmpty()) {
-            NoDataFound(displayText = "No Delas Available")
+        if (driverViewModel.requestedDeals.value.isEmpty()) {
+            NoDataFound(displayText = "No Request Found")
         } else {
             LazyColumn {
-                items(driverViewModel.allDeals.value) { dealDetails ->
+                items(driverViewModel.requestedDeals.value) { dealDetails ->
                     DriverDealsUi(
                         dealDetails = dealDetails,
                         driverViewModel = driverViewModel,
                         navController = navController,
-                        showText = false,
-                        isReq = false
+                        showText = true,
+                        isReq = true
                     )
                 }
             }
         }
     }
+
 }

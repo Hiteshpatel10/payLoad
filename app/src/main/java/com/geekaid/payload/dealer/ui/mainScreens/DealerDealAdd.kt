@@ -16,6 +16,8 @@ import com.geekaid.payload.components.dropdownList
 import com.geekaid.payload.dealer.firebaseDao.screenDao.dealerDealAddDao
 import com.geekaid.payload.dealer.model.DealerDealAddModel
 import com.geekaid.payload.driver.model.DriverRoute
+import com.google.firebase.FirebaseApiNotAvailableException
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 @Composable
@@ -30,6 +32,7 @@ fun DealerDealAdd(navController: NavController) {
     var to by remember { mutableStateOf("") }
 
     val context = LocalContext.current
+    val auth = FirebaseAuth.getInstance()
 
     Column(
         modifier = Modifier
@@ -90,6 +93,7 @@ fun DealerDealAdd(navController: NavController) {
             dealerDealAddDao(
                 dealDetails = DealerDealAddModel(
                     dealId = System.currentTimeMillis().toString(),
+                    dealerEmail = auth.currentUser?.email.toString(),
                     natureOfMaterial = natureOfMaterial,
                     weightOfMaterial = weightOfMaterial,
                     quantity = quantity,

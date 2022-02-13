@@ -39,7 +39,8 @@ fun HeadingValueStyle(
             }
         },
         maxLines = if (maxLines) 1 else 5,
-        modifier = Modifier.padding(bottom = 2.dp)
+        modifier = Modifier.padding(bottom = 2.dp),
+
     )
 
     if (isSpacer)
