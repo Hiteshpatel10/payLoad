@@ -20,6 +20,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.geekaid.payload.components.passwordVisible
@@ -41,6 +42,8 @@ fun DriverSignInScreen(navController: NavController) {
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Text(text = "Driver SignIn", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
 
         OutlinedTextField(
             value = email,
@@ -91,6 +94,19 @@ fun DriverSignInScreen(navController: NavController) {
         )
         {
             Text(text = "Log In")
+        }
+
+        Button(
+            onClick = {
+                navController.navigate("driverOrDealer")
+            },
+            contentPadding = PaddingValues(14.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        )
+        {
+            Text(text = "Change Dealer/Driver")
         }
 
 

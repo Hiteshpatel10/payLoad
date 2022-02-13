@@ -1,4 +1,4 @@
-package com.geekaid.payload.ui.authScreens
+package com.geekaid.payload.driver.ui.authScreens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

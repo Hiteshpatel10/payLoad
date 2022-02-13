@@ -2,13 +2,16 @@ package com.geekaid.payload.dealer.ui.mainScreens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.geekaid.payload.components.DriverDetailUi
@@ -29,11 +32,14 @@ fun DealerDriverListScreen(dealerViewModel: DealerViewModel, navController: NavC
     Column(modifier = Modifier
         .padding(8.dp)
         .fillMaxSize()) {
+        
 
        if (dealerViewModel.drivers.value.isEmpty()){
            NoDataFound(displayText = "No drivers available for this route")
            
        }else{
+           
+           Text(text = "Available Driver List for the job", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
            LazyColumn {
                items(dealerViewModel.drivers.value) { driverDetails ->
                    DriverDetailUi(driverDetails = driverDetails, dealDataModel = dealerViewModel.dealData.value)

@@ -28,20 +28,24 @@ class Repository {
         }
     }
 
+
     fun findDriver(route: String) = callbackFlow {
 
-        val driverList = firestore.collection("users").document("driver")
-            .collection("data").whereEqualTo("from1", route)
+            val driverList = firestore.collection("users").document("driver")
+                .collection("data")
+                .whereEqualTo("from1",route)
 
-        val snapshotListener = driverList.addSnapshotListener { value, error ->
-            if (error == null)
-                trySend(value)
-        }
+            val snapshotListener = driverList.addSnapshotListener { value, error ->
+                if (error == null)
+                    trySend(value)
+            }
 
-        awaitClose {
-            snapshotListener.remove()
-        }
+            awaitClose {
+                snapshotListener.remove()
+            }
+
     }
+
 
     fun getReqDealsList() = callbackFlow {
 
@@ -106,6 +110,7 @@ class Repository {
         }
 
     }
+
 
 
 }

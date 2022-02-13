@@ -20,6 +20,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.geekaid.payload.components.passwordVisible
@@ -42,6 +43,8 @@ fun DealerSignInScreen(navController: NavController) {
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Text(text = "Dealer SignIn", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
 
         OutlinedTextField(
             value = email,
@@ -94,6 +97,19 @@ fun DealerSignInScreen(navController: NavController) {
             Text(text = "Log In")
         }
 
+        Button(
+            onClick = {
+                navController.navigate("driverOrDealer")
+            },
+            contentPadding = PaddingValues(14.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        )
+        {
+            Text(text = "Change Dealer/Driver")
+        }
+
         Row(
             modifier = Modifier
                 .padding(4.dp)
@@ -103,7 +119,6 @@ fun DealerSignInScreen(navController: NavController) {
             ClickableText(
                 text = AnnotatedString(" Get help Signing in"),
                 onClick = {
-//                    navController.navigate(DealerScreens.route)
                 }
             )
         }

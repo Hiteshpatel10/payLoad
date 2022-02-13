@@ -6,7 +6,6 @@ import androidx.navigation.NavController
 import com.geekaid.payload.dealer.model.DealerDataModel
 import com.geekaid.payload.dealer.model.DealerSignUpModel
 import com.geekaid.payload.dealer.navigation.DealerScreens
-import com.geekaid.payload.driver.navigation.DriverScreens
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

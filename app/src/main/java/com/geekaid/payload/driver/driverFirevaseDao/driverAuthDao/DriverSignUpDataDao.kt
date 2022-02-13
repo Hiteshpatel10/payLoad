@@ -24,7 +24,20 @@ fun driverSignUpDataDao(
         try {
             firestore.collection("users").document("driver")
                 .collection("data").document(auth.currentUser?.email.toString())
-                .update("from1", routes.from1, "from2", routes.from2, "from3", routes.from3,"to1",routes.to1,"to2",routes.to2,"to3",routes.to3)
+                .update(
+                    "from1",
+                    routes.from1,
+                    "from2",
+                    routes.from2,
+                    "from3",
+                    routes.from3,
+                    "to1",
+                    routes.to1,
+                    "to2",
+                    routes.to2,
+                    "to3",
+                    routes.to3
+                )
                 .addOnSuccessListener {
                     Toast.makeText(context, "Routes Saved", Toast.LENGTH_SHORT).show()
                 }
@@ -40,51 +53,59 @@ fun driverSignUpDataDao(
 }
 
 
-fun validateSignUpRouteData(context: Context, credential: DriverRouteList): Boolean {
+fun validateSignUpRouteData(context: Context, routeData: DriverRouteList): Boolean {
+
+    var isValid = false
+    when {
+
+        routeData.from1 == "-" ->
+            Toast.makeText(
+                context,
+                "From state can't be empty",
+                Toast.LENGTH_SHORT
+            ).show()
 
 
+        routeData.to1 == "-" ->
+            Toast.makeText(
+                context,
+                "From city can't be empty",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        routeData.from2 == "-" ->
+            Toast.makeText(
+                context,
+                "From state can't be empty",
+                Toast.LENGTH_SHORT
+            ).show()
 
 
-//
-//        when {
-//
-//            routeData.fromState.isEmpty() -> {
-//                Toast.makeText(
-//                    context,
-//                    "From state can't be empty",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//
-//            routeData.fromCity.isEmpty() -> {
-//                Toast.makeText(
-//                    context,
-//                    "From city can't be empty",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                boolean = false
-//            }
-//
-//            routeData.toState.isEmpty() -> {
-//                Toast.makeText(
-//                    context,
-//                    "To state can't be empty",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                boolean = false
-//            }
-//
-//            routeData.toCity.isEmpty() -> {
-//                Toast.makeText(
-//                    context,
-//                    "To city can't be empty",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                boolean = false
-//            }
-//
-//        }
-//    }
+        routeData.to2 == "-" ->
+            Toast.makeText(
+                context,
+                "From city can't be empty",
+                Toast.LENGTH_SHORT
+            ).show()
 
-    return true
+        routeData.from3 == "-" ->
+            Toast.makeText(
+                context,
+                "From state can't be empty",
+                Toast.LENGTH_SHORT
+            ).show()
+
+
+        routeData.to3 == "-"->
+            Toast.makeText(
+                context,
+                "From city can't be empty",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        else -> isValid = true
+
+    }
+
+    return isValid
 }

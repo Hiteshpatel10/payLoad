@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.geekaid.payload.dealer.model.DealerDealAddModel
+import com.geekaid.payload.dealer.model.DealerSignUpModel
 import com.geekaid.payload.driver.model.DriverDataModel
 import com.geekaid.payload.repository.Repository
 import com.google.firebase.firestore.DocumentSnapshot
@@ -27,6 +28,7 @@ class DealerViewModel @Inject constructor(private val repository: Repository) : 
 
     //to get the driverList
     fun getDriversList() = repository.findDriver(route = dealData.value.from)
+
 
     //to get the driver details
     fun getDriversDetails(email: String): Flow<DocumentSnapshot?> {
