@@ -25,8 +25,9 @@ fun driverSignUpDao(
             .addOnSuccessListener {
                 Toast.makeText(context, "Registered Successfully", Toast.LENGTH_SHORT).show()
 
+
                 firestore.collection("users").document("driver")
-                    .collection(credentials.email).document("data").set(
+                    .collection("data").document(credentials.email).set(
                     DriverDataModel(
                         email = credentials.email,
                         name = credentials.name,

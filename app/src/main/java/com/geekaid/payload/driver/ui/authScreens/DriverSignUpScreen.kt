@@ -1,6 +1,5 @@
 package com.geekaid.payload.driver.ui.authScreens
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
@@ -24,12 +23,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.geekaid.payload.components.passwordVisible
-import com.geekaid.payload.dealer.firebaseDao.authDao.dealerSignUpDao
 import com.geekaid.payload.dealer.navigation.DealerScreens
 import com.geekaid.payload.driver.driverFirevaseDao.driverAuthDao.driverSignUpDao
 import com.geekaid.payload.driver.model.DriverSignUpModel
-import com.geekaid.payload.driver.navigation.DriverScreens
-import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun DriverSignUpScreen(navController: NavController) {

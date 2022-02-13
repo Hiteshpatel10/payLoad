@@ -1,4 +1,4 @@
-package com.geekaid.payload.dealer.firebaseDao.authDao
+package com.geekaid.payload.dealer.firebaseDao.screenDao
 
 import android.content.Context
 import android.widget.Toast
@@ -34,8 +34,6 @@ fun dealerDealAddDao(
         navController.navigate(DealerScreens.DashboardScreen.route)
     }
 
-
-
 }
 
 fun dealerDealAddValidateData(
@@ -69,29 +67,18 @@ fun dealerDealAddValidateData(
             Toast.LENGTH_SHORT
         ).show()
 
-        dealDetails.route.fromState.isEmpty() -> Toast.makeText(
+        dealDetails.from.isEmpty() -> Toast.makeText(
             context,
-            "From State can't be empty",
+            "From State and city can't be empty",
             Toast.LENGTH_SHORT
         ).show()
 
-        dealDetails.route.fromCity.isEmpty() -> Toast.makeText(
+        dealDetails.to.isEmpty() -> Toast.makeText(
             context,
-            "From City can't be empty",
+            "From State and city can't be empty",
             Toast.LENGTH_SHORT
         ).show()
 
-        dealDetails.route.toState.isEmpty() -> Toast.makeText(
-            context,
-            "To State can't be empty",
-            Toast.LENGTH_SHORT
-        ).show()
-
-        dealDetails.route.toCity.isEmpty() -> Toast.makeText(
-            context,
-            "To City can't be empty",
-            Toast.LENGTH_SHORT
-        ).show()
 
         else -> return true
     }

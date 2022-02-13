@@ -9,4 +9,5 @@ sealed class DealerScreens(val route: String){
     //Main Screens
     object DashboardScreen: DealerScreens("dealerDashboard")
     object DealerDealAddScreen: DealerScreens("dealerDealAddScreen")
+    object DealerDriverListScreen: DealerScreens("dealerDriverListScreen")
 }

@@ -1,4 +1,4 @@
-package com.geekaid.payload.driver.ui.authScreens
+package com.geekaid.payload.ui.authScreens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,18 +17,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.geekaid.payload.components.dropdownList
 import com.geekaid.payload.driver.driverFirevaseDao.driverAuthDao.driverSignUpDataDao
-import com.geekaid.payload.driver.model.DriverRoute
-import com.geekaid.payload.driver.model.DriverRouteFromTo
 import com.geekaid.payload.driver.model.DriverRouteList
 
 @Composable
 fun DriverSignUpDataScreen(navController: NavController) {
 
-    var route1 by remember { mutableStateOf(DriverRoute()) }
-    var route2 by remember { mutableStateOf(DriverRoute()) }
-    var route3 by remember { mutableStateOf(DriverRoute()) }
-    var from by remember { mutableStateOf(DriverRouteFromTo()) }
-    var to by remember { mutableStateOf(DriverRouteFromTo()) }
+    var from1 by remember { mutableStateOf("") }
+    var from2 by remember { mutableStateOf("") }
+    var from3 by remember { mutableStateOf("") }
+    var to1 by remember { mutableStateOf("") }
+    var to2 by remember { mutableStateOf("") }
+    var to3 by remember { mutableStateOf("") }
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current
@@ -47,53 +46,35 @@ fun DriverSignUpDataScreen(navController: NavController) {
         Spacer(modifier = Modifier.padding(4.dp))
 
         Text(text = "Route1")
-        from =
+        from1 =
             dropdownList(stateLabel = "From State", cityLabel = "From City", validateInput = false)
-        to = dropdownList(stateLabel = "To State", cityLabel = "To City", validateInput = false)
-        route1 = DriverRoute(
-            fromState = from.state,
-            fromCity = from.city,
-            toState = to.state,
-            toCity = to.city
-        )
-
+        to1 = dropdownList(stateLabel = "To State", cityLabel = "To City", validateInput = false)
 
         Spacer(modifier = Modifier.padding(4.dp))
 
         Text(text = "Route2")
-        from =
+        from2 =
             dropdownList(stateLabel = "From State", cityLabel = "From City", validateInput = false)
-        to = dropdownList(stateLabel = "To State", cityLabel = "To City", validateInput = false)
-        route2 = DriverRoute(
-            fromState = from.state,
-            fromCity = from.city,
-            toState = to.state,
-            toCity = to.city
-        )
+        to2 = dropdownList(stateLabel = "To State", cityLabel = "To City", validateInput = false)
 
         Spacer(modifier = Modifier.padding(4.dp))
 
         Text(text = "Route3")
-        from =
+        from3 =
             dropdownList(stateLabel = "From State", cityLabel = "From City", validateInput = false)
-        to = dropdownList(stateLabel = "To State", cityLabel = "To City", validateInput = false)
-        route3 = DriverRoute(
-            fromState = from.state,
-            fromCity = from.city,
-            toState = to.state,
-            toCity = to.city
-        )
+        to3 = dropdownList(stateLabel = "To State", cityLabel = "To City", validateInput = false)
 
         Spacer(modifier = Modifier.padding(4.dp))
 
         Button(onClick = {
             driverSignUpDataDao(
-                credentials = DriverRouteList(
-                    routeList = listOf(
-                        route1,
-                        route2,
-                        route3
-                    )
+                routes = DriverRouteList(
+                    from1 = from1,
+                    from2 = from2,
+                    from3 = from3,
+                    to1 = to1,
+                    to2 = to2,
+                    to3 = to3
                 ), context = context, navController = navController
             )
         }) {

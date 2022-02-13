@@ -9,6 +9,9 @@ data class DealerDealAddModel(
     var quantity: String = "",
     var price: String = "",
     var assigned: Boolean = false,
-    var route: DriverRoute = DriverRoute()
+    var completed: Boolean = false,
+    var dealDate: String = "",
+    var from: String = "",
+    var to: String = "",
 
 )

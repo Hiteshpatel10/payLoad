@@ -16,8 +16,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
-import com.geekaid.payload.driver.model.DriverRouteFromTo
-import com.geekaid.payload.driver.ui.authScreens.DriverSignUpDataScreen
 import com.geekaid.payload.util.StateList
 import com.geekaid.payload.util.stateCityList
 
@@ -27,7 +25,7 @@ fun dropdownList(
     cityLabel: String,
     defaultValue: String = "",
     validateInput: Boolean
-): DriverRouteFromTo {
+): String{
     var cityExpanded by remember { mutableStateOf(false) }
     var stateExpanded by remember { mutableStateOf(false) }
     var state by remember { mutableStateOf(defaultValue) }
@@ -165,5 +163,5 @@ fun dropdownList(
         }
     }
 
-    return DriverRouteFromTo(state = state, city = city)
+    return "${state}-${city}"
 }

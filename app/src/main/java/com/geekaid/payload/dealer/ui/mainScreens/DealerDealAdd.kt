@@ -13,10 +13,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.geekaid.payload.components.dropdownList
-import com.geekaid.payload.dealer.firebaseDao.authDao.dealerDealAddDao
+import com.geekaid.payload.dealer.firebaseDao.screenDao.dealerDealAddDao
 import com.geekaid.payload.dealer.model.DealerDealAddModel
 import com.geekaid.payload.driver.model.DriverRoute
-import com.geekaid.payload.driver.model.DriverRouteFromTo
+import java.util.*
 
 @Composable
 fun DealerDealAdd(navController: NavController) {
@@ -26,9 +26,8 @@ fun DealerDealAdd(navController: NavController) {
     var quantity by remember { mutableStateOf("") }
     var price by remember { mutableStateOf("") }
 
-    var from by remember { mutableStateOf(DriverRouteFromTo()) }
-    var to by remember { mutableStateOf(DriverRouteFromTo()) }
-    var route by remember { mutableStateOf(DriverRoute()) }
+    var from by remember { mutableStateOf("") }
+    var to by remember { mutableStateOf("") }
 
     val context = LocalContext.current
 
@@ -85,13 +84,6 @@ fun DealerDealAdd(navController: NavController) {
         Text(text = "Ship To")
         to = dropdownList(stateLabel = "To State", cityLabel = "To City", validateInput = false)
 
-        route = DriverRoute(
-            fromState = from.state,
-            fromCity = from.city,
-            toState = to.state,
-            toCity = to.city
-        )
-
         Spacer(modifier = Modifier.padding(12.dp))
 
         Button(onClick = {
@@ -101,7 +93,10 @@ fun DealerDealAdd(navController: NavController) {
                     natureOfMaterial = natureOfMaterial,
                     weightOfMaterial = weightOfMaterial,
                     quantity = quantity,
-                    price = price
+                    price = price,
+                    dealDate = Calendar.getInstance().time.toString(),
+                    from = from,
+                    to = to
                 ),
                 context = context,
                 navController = navController

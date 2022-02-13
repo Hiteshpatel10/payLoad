@@ -7,12 +7,12 @@ data class DriverRoute(
     var toCity: String = "",
 )
 
-data class DriverRouteFromTo(
-    var state: String = "",
-    var city: String = "",
-)
-
 data class DriverRouteList(
-    var routeList: List<DriverRoute> = listOf(DriverRoute())
+    var from1: String = "",
+    var from2: String = "",
+    var from3: String = "",
+    var to1: String = "",
+    var to2: String = "",
+    var to3: String = "",
 )
 
